@@ -1,0 +1,44 @@
+metadata:
+  name: workflow-name
+input:
+- user
+- github_token
+- slack_token
+- slack_channel
+- slack_userid
+stages:
+- name: get_repositories
+  steps:
+  - name: fetch_github
+    type: http
+    method: post
+    url: https://api.github.com/graphql
+    headers:
+    - Authentication: %{input.github_token}
+    body: {
+      "query": "query($username: String!) { user(login: $username) { repositories(first: 10) { nodes { name } } } }",
+      "username":       "%{input.user}"
+    }
+    # jq syntax
+    output:
+      repositories: "[.data.user.repositories.nodes[].name] | join(\", \")"
+- name: publish_in_slack
+  steps:
+  - name: send_message_to_channel
+    type: http
+    method: post
+    url: https://slack.com/api/chat.postMessage
+    body: {
+      "token": "%{input.slack_token}",
+      "channel": "%{input.slack_channel}",
+      "message": "User %{input.user} are: %{output.fetch_github.repositories}"
+    }
+  - name: send_message_to_user
+    type: http
+    method: post
+    url: https://slack.com/api/chat.postMessage
+    body: {
+      "token": "%{input.slack_token}",
+      "channel": "%{input.slack_userid}",
+      "message": "Your repos are: %{output.fetch_github.repositories}"
+    }
