@@ -3,7 +3,7 @@ The workflow is the execution rule specification, it works like a template which
 can be executed by **flik**.
 
 ## Overview
-Let say a sampla workflow speficication:
+Lets say we have this sample workflow speficication:
 
 ```
 Workflow Spec
