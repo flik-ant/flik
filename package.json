@@ -1,0 +1,31 @@
+{
+  "name": "flik",
+  "version": "0.0.1",
+  "description": "SOA/Microservice workflow made smooth by the Flik ant",
+  "main": "src/index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flik-ant/flik.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flik-ant/flik/issues"
+  },
+  "homepage": "https://github.com/flik-ant/flik#readme",
+  "dependencies": {
+    "axios": "*",
+    "handlebars": "^4.0.11",
+    "node-jq": "^1.3.0"
+  },
+  "devDependencies": {
+    "ava": "*"
+  }
+}
